@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<title>単語ジェネレーター</title>
+	</head>
+	<body>
+		<div id="wordBoxs">
+			<textarea rows="30" cols="20" class="wordArea" id="word1" name="word1"></textarea>
+			<textarea rows="30" cols="20" class="wordArea" id="word2" name="word2"></textarea>
+			<textarea rows="30" cols="20" class="wordArea" id="word3" name="word3"></textarea>
+		</div>
+		<input name="exec" type="button" value="gene" id="exec">
+		<span id="result"></span>
+		<span id="log"></span>
+	</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$('#exec').on('click', function(){
+	genelate_exec();
+});
+let genelate_exec = () => {
+	var classCount = $(".wordArea").length;
+
+	let word1  = document.getElementById('word1').value.replace(/\r\n|\r/g, "\n");
+	let lines1 = word1.split( '\n' );
+	let outArray1 = new Array();
+	for ( let i = 0; i < lines1.length; i++ ) {
+		if ( lines1[i] == '' ) { continue; }
+		outArray1.push( lines1[i] );
+	}
+	let word2  = document.getElementById('word2').value.replace(/\r\n|\r/g, "\n");
+	let lines2 = word2.split( '\n' );
+	let outArray2 = new Array();
+	for ( let i = 0; i < lines2.length; i++ ) {
+		if ( lines2[i] == '' ) {
+			continue;
+		}
+		outArray2.push( lines2[i] );
+	}
+	let word3  = document.getElementById('word3').value.replace(/\r\n|\r/g, "\n");
+	let lines3 = word3.split( '\n' );
+	let outArray3 = new Array();
+	for ( let i = 0; i < lines3.length; i++ ) {
+		if ( lines3[i] == '' ) {
+			continue;
+		}
+		outArray3.push( lines3[i] );
+	}
+
+	let preWord = outArray1[Math.floor(Math.random() * outArray1.length)];
+	if(preWord === undefined){
+		preWord = "";
+	}
+	let centerWord = outArray2[Math.floor(Math.random() * outArray2.length)];
+	if(centerWord === undefined){
+		centerWord = "";
+	}
+	let endWord = outArray3[Math.floor(Math.random() * outArray3.length)];
+	if(endWord === undefined){
+		endWord = "";
+	}
+	let resultWord = preWord + centerWord + endWord;
+
+	$('#result').text(preWord + centerWord + endWord);
+	$('#log').append(resultWord + '<br />');
+}
+</script>
